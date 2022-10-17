@@ -19,15 +19,14 @@ if '../' not in sys.path:  # src folder
     sys.path.append('../')
 
 from os.path import join
-import data
+ 
 import time
 import pickle
 import random
 
 import sklearn
 from sklearn import tree
-
-from src.models import UKGE_logi_TF, UKGE_rect_TF
+ 
 
 
 # This class is used to load and combine a TF_Parts and a Data object, and provides some useful methods for training
@@ -635,9 +634,11 @@ class Tester(object):
                 dict_keys.append([h, r])
 
         dict_keys = sorted(dict_keys, key=lambda x: len(self.hr_map[x[0]][x[1]]), reverse=True)
+        print(dict_keys)
+
         dict_final_keys = []
 
-        for i in range(2525):
+        for i in range(len(dict_keys)):
             dict_final_keys.append(dict_keys[i])
 
         count = 0
@@ -894,4 +895,4 @@ class UKGE_rect_Tester(Tester):
         mse = (mse_hn + mse_tn) / 2
         return mse
 
-
+ 
