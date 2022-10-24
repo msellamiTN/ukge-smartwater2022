@@ -26,7 +26,7 @@ import random
 
 import sklearn
 from sklearn import tree
- 
+from plot_confusion_matrix import cm_analysis 
 
 
 # This class is used to load and combine a TF_Parts and a Data object, and provides some useful methods for training
@@ -203,7 +203,7 @@ class Tester(object):
                 continue
             triples.append([h, r, t, w])
         return pd.DataFrame(triples, columns=['v1','relation','v2','w'])
-
+    
     def con_index2vec(self, c):
         return self.vec_c[c]
 
@@ -415,6 +415,7 @@ class Tester(object):
         return mae_neg
 
     def con_index2vec_batch(self, indices):
+        
         return np.squeeze(self.vec_c[[indices], :])
 
     def rel_index2vec_batch(self, indices):
@@ -591,25 +592,39 @@ class Tester(object):
         return scores, P, R, F1, Acc
 
 
-    def decision_tree_classify(self, confT, train_data):
+    def decision_tree_classify(self, confT, data_dir):
         """
         :param confT: :param confT: the threshold of ground truth confidence score
         :param train_data: dataframe['v1','relation','v2','w']
         :return:
         """
-        # train_data = pd.read_csv(os.path.join(data_dir,'train.tsv'), sep='\t', header=None, names=['v1','relation','v2','w'])
-
-        test_triples = self.test_triples
-
+        #train_data = pd.read_csv(os.path.join(data_dir,'train.tsv'), sep='\t', header=None, names=['v1','relation','v2','w'])
+        print(type(self.this_data.triples))
+        train_Y = self.this_data.triples[:, 3]>confT  # label (high confidence/not) 
+        #print(train_Y)
+        train_h, train_r, train_t  = self.this_data.triples[:, 0].astype(int), self.this_data.triples[:, 1].astype(int), self.this_data.triples[:, 2].astype(int)
+        w_train = self.this_data.triples[:, 3]
+         
+        print('Debuging train data')
+        print(self.get_score_batch(train_h, train_r, train_t))
+        train_X = self.get_score_batch(train_h, train_r, train_t)[:, np.newaxis]
+        print('Debuging score train X')
+        print(train_t)
         # train
-        train_h, train_r, train_t = train_data['v1'].values.astype(int), train_data['relation'].values.astype(int), train_data['v2'].values.astype(int)
+        #train_h, train_r, train_t = train_data['v1'].values.astype(int), train_data['relation'].values.astype(int), train_data['v2'].values.astype(int)
+          
+        train_h, train_r, train_t  = self.this_data.triples[:, 0].astype(int), self.this_data.triples[:, 1].astype(int), self.this_data.triples[:, 2].astype(int)
+        
         train_X = self.get_score_batch(train_h, train_r, train_t)[:, np.newaxis]  # feature(2D, n*1)
-        train_Y = train_data['w']>confT  # label (high confidence/not)
+        
+        #train_Y = train_data['w']>confT  # label (high confidence/not)
+        print(train_Y)
         clf = tree.DecisionTreeClassifier()
         clf.fit(train_X, train_Y)
 
         # predict
         test_triples = self.test_triples
+        print(test_triples)
         test_h, test_r, test_t = test_triples[:, 0].astype(int), test_triples[:, 1].astype(int), test_triples[:, 2].astype(int)
         test_X = self.get_score_batch(test_h, test_r, test_t)[:, np.newaxis]
         test_Y_truth = test_triples[:, 3]>confT
@@ -617,15 +632,17 @@ class Tester(object):
         print('Number of true positive: %d' % np.sum(test_Y_truth))
         print('Number of predicted positive: %d'%np.sum(test_Y_pred))
 
-
+        
         precision, recall, F1, _ = sklearn.metrics.precision_recall_fscore_support(test_Y_truth, test_Y_pred)
-        accu = sklearn.metrics.accuracy_score(test_Y_truth, test_Y_pred)
-
+        # matrix = sklearn.metrics.confusion_matrix(test_Y_truth, test_Y_pred)
+         #classes=['Good','Poor','Excellent', 'Very poor']
+         #cm_analysis(test_Y_truth, test_Y_pred,'confusionmatrix.png',labels=classes)
         # P-R curve
         P, R, thres = sklearn.metrics.precision_recall_curve(test_Y_truth, test_X)
 
         return test_X, precision, recall, F1, accu, P, R
-
+    
+        
     def get_fixed_hr(self, outputdir=None, n=500):
         hr_map500 = {}
         dict_keys = []
@@ -896,3 +913,4 @@ class UKGE_rect_Tester(Tester):
         return mse
 
  
+

@@ -39,8 +39,8 @@ def get_model_identifier(whichmodel):
 
 parser = argparse.ArgumentParser()
 # required
-parser.add_argument('--data', type=str, default='ppi5k',
-                    help="the dir path where you store data (train.tsv, val.tsv, test.tsv). Default: ppi5k")
+parser.add_argument('--data', type=str, default='water',
+                    help="the dir path where you store data (train.tsv, val.tsv, test.tsv). Default: water")
 # optional
 parser.add_argument("--verbose", help="print detailed info for debugging",
                     action="store_true")
@@ -104,3 +104,15 @@ m_train.build(this_data, save_dir)
 ht_embedding, r_embedding = m_train.train(epochs=param.n_epoch, save_every_epoch=param.val_save_freq,
                                           lr=param.learning_rate,
                                           data_dir=param.data_dir())
+print(ht_embedding)
+scores, P, R, F1, Acc=m_train.validator.classify_triples(0.6,[0.5,0.6,0.7])
+m_train.validator.decision_tree_classify(0.6,data_dir)
+#df = pd.DataFrame(my_array, columns = ['Column_A','Column_B','Column_C'])
+print("scores")
+print(scores)
+print("Precision")
+print(P)
+print("Recall")
+print(R)
+print("F1-Mesure")
+print(F1)
