@@ -610,9 +610,9 @@ class Tester(object):
          
         for cl in classes:
 
-           print(self.con_index2str(cl))
-           print(test_triples[:, 1][test_triples[:, 2]==self.con_index2str(cl)].astype(int))
-           # h_batch = test_triples[:, 0][test_triples[:, 2]].astype(int)
+            print(self.con_index2str(cl))
+            print(test_triples[:, 1][test_triples[:, 2]==self.con_index2str(cl)].astype(int))
+            # h_batch = test_triples[:, 0][test_triples[:, 2]].astype(int)
            # r_batch = test_triples[:, 1][test_triples[:, 2]==self.con_index2str(cl)].astype(int)
            # t_batch = test_triples[:, 2][test_triples[:, 2]==self.con_index2str(cl)].astype(int)
            # w_batch = test_triples[:, 3][test_triples[:, 2]==self.con_index2str(cl)]
