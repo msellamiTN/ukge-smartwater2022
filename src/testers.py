@@ -27,7 +27,7 @@ import random
 import sklearn
 from sklearn import tree
 from plot_confusion_matrix import cm_analysis 
-
+from sklearn import preprocessing
 
 # This class is used to load and combine a TF_Parts and a Data object, and provides some useful methods for training
 class Tester(object):
@@ -610,19 +610,20 @@ class Tester(object):
         train_h, train_r, train_t  = self.this_data.triples[:, 0][self.this_data.triples[:, 3]>confT].astype(int), self.this_data.triples[:, 1][self.this_data.triples[:, 3]>confT].astype(int), self.this_data.triples[:, 2][self.this_data.triples[:, 3]>confT].astype(int)
         
         train_X = self.get_score_batch(train_h, train_r, train_t)[:, np.newaxis]  # feature(2D, n*1)
-        train_Y = self.this_data.triples[:, 2][self.this_data.triples[:, 3]>confT]  # label (high confidence/not) 
+        train_Y = preprocessing.label_binarize(self.this_data.triples[:, 2][self.this_data.triples[:, 3]>confT], classes=[0, 1, 2, 3])  # label (high confidence/not) 
        
         #train_Y = train_data['w']>confT  # label (high confidence/not)
         #print(train_Y)
         clf = tree.DecisionTreeClassifier()
         clf.fit(train_X, train_Y)
+        
 
         # predict
         test_triples = self.test_triples
          #print(test_triples)
         test_h, test_r, test_t = test_triples[:, 0][test_triples[:, 3]>confT].astype(int), test_triples[:, 1][test_triples[:, 3]>confT].astype(int), test_triples[test_triples[:, 3]>confT][:, 2].astype(int)
         test_X = self.get_score_batch(test_h, test_r, test_t)[:, np.newaxis]
-        test_Y_truth = test_triples[:,2][test_triples[:, 3]>confT] 
+        test_Y_truth = preprocessing.label_binarize(test_triples[:,2][test_triples[:, 3]>confT], classes=[0, 1, 2, 3])) 
         test_Y_pred = clf.predict(test_X)
         print('Number of true positive: %d' % np.sum(test_Y_truth))
         print('Number of predicted positive: %d'%np.sum(test_Y_pred))
