@@ -628,7 +628,8 @@ class Tester(object):
         test_h, test_r, test_t = test_triples[:, 0][test_triples[:, 3]>confT].astype(int), test_triples[:, 1][test_triples[:, 3]>confT].astype(int), test_triples[test_triples[:, 3]>confT][:, 2].astype(int)
         test_X = self.get_score_batch(test_h, test_r, test_t)[:, np.newaxis]
         test_Y_truth = test_triples[:,2][test_triples[:, 3]>confT]  
-        test_Y_truth=label_binarize(y, classes=[0, 1, 2, 3])
+        
+        test_Y_truth= preprocessing.label_binarize(test_Y_truth, classes=[0, 1, 2, 3])
         test_Y_pred = clf.predict(test_X)
         print('Number of true positive: %d' % np.sum(test_Y_truth))
         print('Number of predicted positive: %d'%np.sum(test_Y_pred))
