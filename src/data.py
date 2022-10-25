@@ -42,7 +42,7 @@ class Data(object):
         self.dim = 64
         self.batch_size = 1024
         self.L1 = False
-
+        self.classes=None
     def load_triples(self, filename, splitter='\t', line_end='\n'):
         '''Load the dataset'''
         triples = []
@@ -106,6 +106,8 @@ class Data(object):
             
             w = line[3]
             print((line[0],line[1],line[2],line[3]),(h, r, t,w))
+            if(line[2] in [0,1,2,3]):
+                self.classes.append((line[2],t))
             if h != None and r != None and t != None:
                 self.triples_record.add((h, r, t))
         # print("Loaded %s to triples_record." % (filename))

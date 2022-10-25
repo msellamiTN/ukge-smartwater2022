@@ -611,7 +611,7 @@ class Tester(object):
         #print((line[0],line[1],line[2],line[3]),(h, r, t,w))
         #('1450.0', '4', '1.0', '0.49861095736266736') (232, 0, 96, '0.49861095736266736')
          
-        for cl in self.test_classes:
+        for cl in self.this_data.classes:
 
             print(cl)
             #print(test_triples[:, 1][test_triples[:, 2]=='96'].astype(int))
