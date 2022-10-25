@@ -612,7 +612,7 @@ class Tester(object):
         train_X = self.get_score_batch(train_h, train_r, train_t)[:, np.newaxis]  # feature(2D, n*1)
         train_Y = preprocessing.label_binarize(self.this_data.triples[:, 2][self.this_data.triples[:, 3]>confT], classes=[0, 1, 2, 3])  # label (high confidence/not) 
         print('classe')
-        print(np.unique(self.this_data.triples[:, 2][self.this_data.triples[:, 1]=='4']))
+        print(np.unique(self.this_data.triples[:, 2][self.this_data.triples[:, 1]==4]))
         #train_Y = train_data['w']>confT  # label (high confidence/not)
         #print(train_Y)
         clf = tree.DecisionTreeClassifier()
