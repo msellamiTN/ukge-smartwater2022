@@ -617,7 +617,7 @@ class Tester(object):
             print(test_triples[:, 1][test_triples[:, 2]==cl[1]].astype(int))
             h_batch = test_triples[:, 0].astype(int)
             r_batch = test_triples[:, 1].astype(int)
-            t_batch = test_triples[:, 2][test_triples[:, 2]==cl[1].astype(int)
+            t_batch = test_triples[:, 2][test_triples[:, 2]==cl[1]].astype(int)
             w_batch = test_triples[:, 3]
                 
             # ground truth
