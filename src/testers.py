@@ -600,23 +600,18 @@ class Tester(object):
         """
         #train_data = pd.read_csv(os.path.join(data_dir,'train.tsv'), sep='\t', header=None, names=['v1','relation','v2','w'])
         #print(type(self.this_data.triples))
-        train_Y = self.this_data.triples[:, 2][self.this_data.triples[:, 3]>confT]  # label (high confidence/not) 
         #print(train_Y)
         #train_h, train_r, train_t  = self.this_data.triples[:, 0].astype(int), self.this_data.triples[:, 1].astype(int), self.this_data.triples[:, 2].astype(int)
         #w_train = self.this_data.triples[:, 3]
          
-        #print('Debuging train data')
-        #print(self.get_score_batch(train_h, train_r, train_t))
-        train_X = self.get_score_batch(train_h, train_r, train_t)[:, np.newaxis]
-        #print('Debuging score train X')
-        #print(train_t)
-        # train
+      
         #train_h, train_r, train_t = train_data['v1'].values.astype(int), train_data['relation'].values.astype(int), train_data['v2'].values.astype(int)
           
         train_h, train_r, train_t  = self.this_data.triples[:, 0][self.this_data.triples[:, 3]>confT].astype(int), self.this_data.triples[:, 1][self.this_data.triples[:, 3]>confT].astype(int), self.this_data.triples[:, 2][self.this_data.triples[:, 3]>confT].astype(int)
         
         train_X = self.get_score_batch(train_h, train_r, train_t)[:, np.newaxis]  # feature(2D, n*1)
-        
+        train_Y = self.this_data.triples[:, 2][self.this_data.triples[:, 3]>confT]  # label (high confidence/not) 
+       
         #train_Y = train_data['w']>confT  # label (high confidence/not)
         #print(train_Y)
         clf = tree.DecisionTreeClassifier()
