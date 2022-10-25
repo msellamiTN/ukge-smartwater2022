@@ -107,7 +107,7 @@ class Data(object):
             w = line[3]
             print((line[0],line[1],line[2],line[3]),(h, r, t,w))
             print(type(line[2]))
-            if(int(line[2]) in [0,1,2,3]):
+            if line[2] in ['0.0','1.0','2.0','3.0']:
                 self.classes.append((line[2],t))
             if h != None and r != None and t != None:
                 self.triples_record.add((h, r, t))
