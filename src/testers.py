@@ -635,7 +635,7 @@ class Tester(object):
          #classes=['Good','Poor','Excellent', 'Very poor']
          #cm_analysis(test_Y_truth, test_Y_pred,'confusionmatrix.png',labels=classes)
         # P-R curve
-        P, R, thres = sklearn.metrics.precision_recall_curve(test_Y_truth, test_X)
+        P, R, thres = sklearn.metrics.precision_recall_curve(test_Y_truth.argmax(axis=1), test_X)
 
         return test_X, precision, recall, F1, accu, P, R,matrix
     
