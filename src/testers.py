@@ -605,10 +605,10 @@ class Tester(object):
         t_batch = test_triples[:, 2].astype(int)
         w_batch = test_triples[:, 3]
         for cl in classes:
-            h_batch = test_triples[:, 0][test_triples[:, 0]==cl].astype(int)
-            r_batch = test_triples[:, 1][test_triples[:, 0]==cl].astype(int)
-            t_batch = test_triples[:, 2][test_triples[:, 0]==cl].astype(int)
-            w_batch = test_triples[:, 3][test_triples[:, 0]==cl]
+            h_batch = test_triples[:, 0][test_triples[:, 0].astype(int)==cl].astype(int)
+            r_batch = test_triples[:, 1][test_triples[:, 0].astype(int)==cl].astype(int)
+            t_batch = test_triples[:, 2][test_triples[:, 0].astype(int)==cl].astype(int)
+            w_batch = test_triples[:, 3][test_triples[:, 0].astype(int)==cl]
             # ground truth
             high_gt = set(np.squeeze(np.argwhere(w_batch > confT)))  # positive
             low_gt = set(np.squeeze(np.argwhere(w_batch <= confT)))  # negative
