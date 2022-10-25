@@ -60,6 +60,7 @@ class Tester(object):
         # below for test data
         self.test_triples = np.array([0])
         self.test_triples_group = {}
+        self.test_classes=None
 
     # completed by child class
     def build_by_file(self, test_data_file, model_dir, model_filename='xcn-distmult.ckpt', data_filename='xc-data.bin'):
@@ -170,7 +171,9 @@ class Tester(object):
             r = self.this_data.rel_str2index(line[1])
             t = self.this_data.con_str2index(line[2])
             w = float(line[3])
-            print(line[0]+t)
+            if (line[2] in [0,1,2,3]):
+                self.test_classes.append((line[2],t))
+                print(self.test_classes)
             if h is None or r is None or t is None or w is None:
                 continue
             triples.append([h, r, t, w])
