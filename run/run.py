@@ -105,9 +105,9 @@ ht_embedding, r_embedding = m_train.train(epochs=param.n_epoch, save_every_epoch
                                           lr=param.learning_rate,
                                           data_dir=param.data_dir())
 print(ht_embedding)
-scores, P, R, F1, Acc=m_train.validator.classify_triples(0.6,[0.5,0.6,0.7])
-m_train.validator.decision_tree_classify(0.6,data_dir)
-#df = pd.DataFrame(my_array, columns = ['Column_A','Column_B','Column_C'])
+scores, P, R, F1, Acc=m_train.validator.classify_triples(0.4,[0.4,0.6,0.7])
+m_train.validator.decision_tree_classify(0.4,data_dir)
+ 
 print("scores")
 print(scores)
 print("Precision")
