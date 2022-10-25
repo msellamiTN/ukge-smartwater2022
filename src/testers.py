@@ -605,16 +605,14 @@ class Tester(object):
         r_batch = test_triples[:, 1].astype(int)
         t_batch = test_triples[:, 2].astype(int)
         w_batch = test_triples[:, 3]
-        print('h_batch')
-        print(np.unique(h_batch))
-        print('r_batch')
-        print(np.unique(r_batch))
-        print('t_batch')
-        print(np.unique(t_batch))
-        print('w_batch')
-        print(np.unique(w_batch))
+        #print((line[0],line[1],line[2],line[3]),(h, r, t,w))
+        #('1450.0', '4', '1.0', '0.49861095736266736') (232, 0, 96, '0.49861095736266736')
+         
         for cl in classes:
-           
+            h_batch = test_triples[:, 0][test_triples[:, 2]==self.con_index2str(cl)].astype(int)
+            r_batch = test_triples[:, 1][test_triples[:, 2]==self.con_index2str(cl)].astype(int)
+            t_batch = test_triples[:, 2][test_triples[:, 2]==self.con_index2str(cl)].astype(int)
+            w_batch = test_triples[:, 3][test_triples[:, 2]==self.con_index2str(cl)]
             
             # ground truth
             high_gt = set(np.squeeze(np.argwhere(w_batch > confT)))  # positive
