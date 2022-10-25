@@ -646,7 +646,7 @@ class Tester(object):
             R = np.array(R)
             F1 = 2 * np.multiply(P, R) / (P + R)
             Acc = np.array(Acc)
-            metric.append(cl,[scores, P, R, F1, Acc])
+            metric.append((cl,[scores, P, R, F1, Acc]))
         return metric
 
     def decision_tree_classify(self, confT, data_dir):
