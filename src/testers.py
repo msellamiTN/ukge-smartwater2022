@@ -613,10 +613,7 @@ class Tester(object):
         print('w_batch')
         print(np.unique(w_batch))
         for cl in classes:
-            h_batch = test_triples[:, 0][test_triples[:, 1].astype(int)==cl].astype(int)
-            r_batch = test_triples[:, 1][test_triples[:, 1].astype(int)==cl].astype(int)
-            t_batch = test_triples[:, 2][test_triples[:, 1].astype(int)==cl].astype(int)
-            w_batch = test_triples[:, 3][test_triples[:, 1].astype(int)==cl]
+           
             
             # ground truth
             high_gt = set(np.squeeze(np.argwhere(w_batch > confT)))  # positive
