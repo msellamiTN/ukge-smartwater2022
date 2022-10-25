@@ -611,7 +611,8 @@ class Tester(object):
         
         train_X = self.get_score_batch(train_h, train_r, train_t)[:, np.newaxis]  # feature(2D, n*1)
         train_Y = preprocessing.label_binarize(self.this_data.triples[:, 2][self.this_data.triples[:, 3]>confT], classes=[0, 1, 2, 3])  # label (high confidence/not) 
-       
+        print('classe')
+        print(np.unique(train_Y))
         #train_Y = train_data['w']>confT  # label (high confidence/not)
         #print(train_Y)
         clf = tree.DecisionTreeClassifier()
@@ -622,10 +623,11 @@ class Tester(object):
         test_h, test_r, test_t = test_triples[:, 0][test_triples[:, 3]>confT].astype(int), test_triples[:, 1][test_triples[:, 3]>confT].astype(int), test_triples[test_triples[:, 3]>confT][:, 2].astype(int)
         test_X = self.get_score_batch(test_h, test_r, test_t)[:, np.newaxis]
         test_Y_truth = preprocessing.label_binarize(test_triples[:,2][test_triples[:, 3]>confT], classes=[0, 1, 2, 3])
-        print('test_Y_truth')
+        print('test_Y_truth')      
+        print(np.unique(test_Y_truth))
         test_Y_pred = clf.predict(test_X)
         print('test_Y_pred')
-        print(test_Y_pred)
+        print(np.unique(test_Y_pred))
         print('Number of true positive: %d' % np.sum(test_Y_truth))
         print('Number of predicted positive: %d'%np.sum(test_Y_pred))
 
