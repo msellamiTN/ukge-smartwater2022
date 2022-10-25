@@ -595,7 +595,7 @@ class Tester(object):
 
         return scores, P, R, F1, Acc
 
-    def classify_triples(self, confT, plausTs,classes):
+    def classify_triples2(self, confT, plausTs,classes):
         """
         Classify high-confidence relation facts
         :param confT: the threshold of ground truth confidence score
