@@ -604,8 +604,8 @@ class Tester(object):
         r_batch = test_triples[:, 1].astype(int)
         t_batch = test_triples[:, 2].astype(int)
         w_batch = test_triples[:, 3]
-        print('t_batch')
-        print(np.unique(t_batch))
+        print('h_batch')
+        print(np.unique(h_batch))
         for cl in classes:
             h_batch = test_triples[:, 0][test_triples[:, 0].astype(int)==cl].astype(int)
             r_batch = test_triples[:, 1][test_triples[:, 0].astype(int)==cl].astype(int)
