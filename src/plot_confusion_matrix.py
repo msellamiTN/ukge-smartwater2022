@@ -45,4 +45,5 @@ def cm_analysis(y_true, y_pred, filename, labels, ymap=None, figsize=(10,10)):
     cm.columns.name = 'Predicted'
     fig, ax = plt.subplots(figsize=figsize)
     sns.heatmap(cm, annot=annot, fmt='', ax=ax)
+    print(filename)
     plt.savefig(filename)
