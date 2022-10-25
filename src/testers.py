@@ -550,7 +550,7 @@ class Tester(object):
         r_batch = test_triples[:, 1].astype(int)
         t_batch = test_triples[:, 2].astype(int)
         w_batch = test_triples[:, 3]
-
+        print(r_batch)
         # ground truth
         high_gt = set(np.squeeze(np.argwhere(w_batch > confT)))  # positive
         low_gt = set(np.squeeze(np.argwhere(w_batch <= confT)))  # negative
@@ -611,9 +611,8 @@ class Tester(object):
         
         train_X = self.get_score_batch(train_h, train_r, train_t)[:, np.newaxis]  # feature(2D, n*1)
         train_Y = preprocessing.label_binarize(self.this_data.triples[:, 2], classes=[0, 1, 2, 3])  # label (high confidence/not) 
-        print('classe')
-        train_cthr=np.array([self.this_data.triples[:, 3]>confT])[[self.this_data.triples[:, 1]==4]]
-        print(np.unique(train_cthr))
+       
+       
         #train_Y = train_data['w']>confT  # label (high confidence/not)
         #print(train_Y)
         clf = tree.DecisionTreeClassifier()
