@@ -99,13 +99,13 @@ class Data(object):
             line = line.rstrip(line_end).split(splitter)
             if len(line) < 3:
                 continue
-            print((line[0],line[1],line[2],line[3]))
+            
             h = self.con_str2index(line[0])
             r = self.rel_str2index(line[1])
             t = self.con_str2index(line[2])
             
             w = line[3]
-            print((h, r, t,w))
+            print((line[0],line[1],line[2],line[3]),(h, r, t,w))
             if h != None and r != None and t != None:
                 self.triples_record.add((h, r, t))
         # print("Loaded %s to triples_record." % (filename))
