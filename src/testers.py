@@ -629,8 +629,8 @@ class Tester(object):
         test_X = self.get_score_batch(test_h, test_r, test_t)[:, np.newaxis]
         test_Y_truth = test_triples[:,2][test_triples[:, 3]>confT]  
         
-        test_Y_truth= np.argmax(preprocessing.label_binarize(test_Y_truth, classes=[0, 1, 2, 3]), axis=1)
-        test_Y_pred = np.argmax(clf.predict(test_X), axis=1)
+        test_Y_truth= np.argmax(preprocessing.label_binarize(test_Y_truth, classes=[0, 1, 2, 3]), axis=0)
+        test_Y_pred = np.argmax(clf.predict(test_X), axis=0)
         print('Number of true positive: %d' % np.sum(test_Y_truth))
         print('Number of predicted positive: %d'%np.sum(test_Y_pred))
 
