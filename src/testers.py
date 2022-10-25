@@ -591,6 +591,63 @@ class Tester(object):
 
         return scores, P, R, F1, Acc
 
+    def classify_triples(self, confT, plausTs,classes):
+        """
+        Classify high-confidence relation facts
+        :param confT: the threshold of ground truth confidence score
+        :param plausTs: the list of proposed thresholds of computed plausibility score
+        :return:
+        """
+        test_triples = self.test_triples
+
+        h_batch = test_triples[:, 0].astype(int)
+        r_batch = test_triples[:, 1].astype(int)
+        t_batch = test_triples[:, 2].astype(int)
+        w_batch = test_triples[:, 3]
+        for cl in classes:
+            h_batch = test_triples[:, 0][test_triples[:, 0]==cl].astype(int)
+            r_batch = test_triples[:, 1][test_triples[:, 0]==cl].astype(int)
+            t_batch = test_triples[:, 2][test_triples[:, 0]==cl].astype(int)
+            w_batch = test_triples[:, 3][test_triples[:, 0]==cl]
+            # ground truth
+            high_gt = set(np.squeeze(np.argwhere(w_batch > confT)))  # positive
+            low_gt = set(np.squeeze(np.argwhere(w_batch <= confT)))  # negative
+
+            P = []
+            R = []
+            Acc = []
+            metric=[]
+            # prediction
+            scores = self.get_score_batch(h_batch, r_batch, t_batch)
+            print('The mean of prediced scores: %f' % np.mean(scores))
+            # pred_thres = np.arange(0, 1, 0.05)
+            for pthres in plausTs:
+
+                high_pred = set(np.squeeze(np.argwhere(scores > pthres)))
+                low_pred = set(np.squeeze(np.argwhere(scores <= pthres)))
+
+                # precision-recall
+                TP = high_gt & high_pred  # union intersection
+                if len(high_pred) == 0:
+                    precision = 1
+                else:
+                    precision = len(TP) / len(high_pred)
+
+                recall = len(TP) / len(high_gt)
+                P.append(precision)
+                R.append(recall)
+
+                # accuracy
+                TPTN = (len(TP) + len(low_gt & low_pred))
+                accuracy = TPTN / test_triples.shape[0]
+                Acc.append(accuracy)
+
+            P = np.array(P)
+            R = np.array(R)
+            F1 = 2 * np.multiply(P, R) / (P + R)
+            Acc = np.array(Acc)
+            metric.append(cl,[scores, P, R, F1, Acc])
+        return metric
 
     def decision_tree_classify(self, confT, data_dir):
         """
