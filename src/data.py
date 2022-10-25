@@ -42,7 +42,7 @@ class Data(object):
         self.dim = 64
         self.batch_size = 1024
         self.L1 = False
-        self.classes=None
+        self.classes= []
     def load_triples(self, filename, splitter='\t', line_end='\n'):
         '''Load the dataset'''
         triples = []
