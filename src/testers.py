@@ -625,7 +625,7 @@ class Tester(object):
         # predict
         test_triples = self.test_triples
         print(test_triples)
-        test_h, test_r, test_t = test_triples[:, 0].astype(int), test_triples[:, 1].astype(int), test_triples[:, 2].astype(int)
+        test_h, test_r, test_t = test_triples[:, 0][test_triples[:, 3]>confT].astype(int), test_triples[:, 1][test_triples[:, 3]>confT].astype(int), test_triples[test_triples[:, 3]>confT][:, 2].astype(int)
         test_X = self.get_score_batch(test_h, test_r, test_t)[:, np.newaxis]
         test_Y_truth = test_triples[:,2][test_triples[:, 3]>confT]
         test_Y_pred = clf.predict(test_X)
