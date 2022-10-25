@@ -616,8 +616,6 @@ class Tester(object):
         #print(train_Y)
         clf = tree.DecisionTreeClassifier()
         clf.fit(train_X, train_Y)
-        
-
         # predict
         test_triples = self.test_triples
          #print(test_triples)
