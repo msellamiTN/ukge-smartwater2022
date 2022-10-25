@@ -643,7 +643,7 @@ class Tester(object):
         # P-R curve
         P, R, thres = sklearn.metrics.precision_recall_curve(test_Y_truth, test_X)
 
-        return test_X, precision, recall, F1, accu, P, R
+        return test_X, precision, recall, F1, accu, P, R,matrix
     
         
     def get_fixed_hr(self, outputdir=None, n=500):
