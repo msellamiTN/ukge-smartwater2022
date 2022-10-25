@@ -611,7 +611,7 @@ class Tester(object):
         for cl in classes:
 
             print(self.con_index2str(cl))
-            print(test_triples[:, 1][test_triples[:, 2]==self.con_index2str(cl)].astype(int))
+            print(test_triples[:, 1][test_triples[:, 2]=='96'].astype(int))
             # h_batch = test_triples[:, 0][test_triples[:, 2]].astype(int)
            # r_batch = test_triples[:, 1][test_triples[:, 2]==self.con_index2str(cl)].astype(int)
            # t_batch = test_triples[:, 2][test_triples[:, 2]==self.con_index2str(cl)].astype(int)
