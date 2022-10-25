@@ -170,6 +170,7 @@ class Tester(object):
             r = self.this_data.rel_str2index(line[1])
             t = self.this_data.con_str2index(line[2])
             w = float(line[3])
+            print(line[0]+t)
             if h is None or r is None or t is None or w is None:
                 continue
             triples.append([h, r, t, w])
