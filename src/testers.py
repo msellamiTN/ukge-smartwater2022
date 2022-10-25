@@ -614,11 +614,11 @@ class Tester(object):
         for cl in self.this_data.classes:
 
             print(cl)
-            print(test_triples[:, 1][test_triples[:, 2]==cl[1]].astype(int))
-            # h_batch = test_triples[:, 0][test_triples[:, 2]].astype(int)
-            # r_batch = test_triples[:, 1][test_triples[:, 2]==self.con_index2str(cl)].astype(int)
-            # t_batch = test_triples[:, 2][test_triples[:, 2]==self.con_index2str(cl)].astype(int)
-            # w_batch = test_triples[:, 3][test_triples[:, 2]==self.con_index2str(cl)]
+            #print(test_triples[:, 1][test_triples[:, 2]==cl[1]].astype(int))
+            h_batch = test_triples[:, 0][test_triples[:, 2]==cl[1]].astype(int)
+            r_batch = test_triples[:, 1][test_triples[:, 2]==cl[1]].astype(int)
+            t_batch = test_triples[:, 2][test_triples[:, 2]==cl[1]].astype(int)
+            w_batch = test_triples[:, 3][test_triples[:, 2]==cl[1]]
             
             # ground truth
             high_gt = set(np.squeeze(np.argwhere(w_batch > confT)))  # positive
@@ -657,7 +657,8 @@ class Tester(object):
             R = np.array(R)
             F1 = 2 * np.multiply(P, R) / (P + R)
             Acc = np.array(Acc)
-            metric.append((cl,[scores, P, R, F1, Acc]))
+            metric.append((cl[0],[scores, P, R, F1, Acc]))
+            
         return metric
 
     def decision_tree_classify(self, confT, data_dir):
