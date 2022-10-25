@@ -554,7 +554,7 @@ class Tester(object):
         r_batch = test_triples[:, 1].astype(int)
         t_batch = test_triples[:, 2].astype(int)
         w_batch = test_triples[:, 3]
-        print(w_batch)
+        #print(w_batch)
         # ground truth
         high_gt = set(np.squeeze(np.argwhere(w_batch > confT)))  # positive
         low_gt = set(np.squeeze(np.argwhere(w_batch <= confT)))  # negative
