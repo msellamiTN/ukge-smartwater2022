@@ -613,7 +613,7 @@ class Tester(object):
         train_Y = preprocessing.label_binarize(self.this_data.triples[:, 2], classes=[0, 1, 2, 3])  # label (high confidence/not) 
         print('classe')
         train_cthr=np.array([self.this_data.triples[:, 3]>confT])[[self.this_data.triples[:, 1]==4]]
-        print(np.unique(train_cthr[:, 2]))
+        print(np.unique(train_cthr))
         #train_Y = train_data['w']>confT  # label (high confidence/not)
         #print(train_Y)
         clf = tree.DecisionTreeClassifier()
@@ -636,7 +636,7 @@ class Tester(object):
         precision, recall, F1, _ = sklearn.metrics.precision_recall_fscore_support(test_Y_truth, test_Y_pred)
         accu = sklearn.metrics.accuracy_score(test_Y_truth, test_Y_pred)
         matrix = sklearn.metrics.confusion_matrix(test_Y_truth.argmax(axis=1), test_Y_pred.argmax(axis=1))
-        cm_analysis(test_Y_truth.argmax(axis=1), test_Y_pred.argmax(axis=1),'matrix_conf',[0,1,2,3,4])
+        cm_analysis(test_Y_truth.argmax(axis=1), test_Y_pred.argmax(axis=1),'matrix_conf',[0,1,2,3])
         #print(matrix)
          #classes=['Good','Poor','Excellent', 'Very poor']
          #cm_analysis(test_Y_truth, test_Y_pred,'confusionmatrix.png',labels=classes)
