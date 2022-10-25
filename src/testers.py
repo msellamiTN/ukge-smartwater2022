@@ -636,6 +636,7 @@ class Tester(object):
         precision, recall, F1, _ = sklearn.metrics.precision_recall_fscore_support(test_Y_truth, test_Y_pred)
         accu = sklearn.metrics.accuracy_score(test_Y_truth, test_Y_pred)
         matrix = sklearn.metrics.confusion_matrix(test_Y_truth, test_Y_pred,[0,1,2,3,4])
+        cm_analysis(test_Y_truth,test_Y_pred,'matrix_conf',[0,1,2,3,4])
         print(matrix)
          #classes=['Good','Poor','Excellent', 'Very poor']
          #cm_analysis(test_Y_truth, test_Y_pred,'confusionmatrix.png',labels=classes)
