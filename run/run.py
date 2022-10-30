@@ -106,7 +106,7 @@ ht_embedding, r_embedding = m_train.train(epochs=param.n_epoch, save_every_epoch
                                           data_dir=param.data_dir())
 #print(ht_embedding)
 metric=m_train.validator.classify_triples(0.3,[0.3,0.4,0.7],[0,1,2,3])
-scores, P, R, F1, Acc=m_train.validator.classify_triples(0.3,[0.1,0.5,0.9])
+scores, P, R, F1, Acc=m_train.validator.classify_triples2(0.3,[0.1,0.5,0.9])
  
 print("scores")
 print(scores)
