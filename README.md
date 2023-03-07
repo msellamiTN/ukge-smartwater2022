@@ -20,19 +20,8 @@ To run the experiments, use:
 
 or
 
-    python ./run/run.py --data ppi5k --model rect --batch_size 1024 --dim 128 --epoch 100 --reg_scale 5e-4
+    python ./run/run.py --data water --model rect --batch_size 1024 --dim 128 --epoch 100 --reg_scale 5e-4
 You can use `--model logi` to switch to the UKGE(logi) model.
 
-Data is available at: https://drive.google.com/file/d/1UJQ8hnqPGv1O9pYglfNF5lY_sgDQkleS/view?usp=sharing
-
-## Reference
-Please refer to our paper. 
-Xuelu Chen, Muhao Chen, Weijia Shi, Yizhou Sun, Carlo Zaniolo. Embedding Uncertain Knowledge Graphs. In *Proceedings of the Thirty-Third AAAI Conference on Artificial Intelligence (AAAI)*, 2019
-
-    @inproceedings{chen2019ucgraph,
-        title={Embedding Uncertain Knowledge Graphs},
-        author={Chen, Xuelu and Chen, Muhao and Shi, Weijia and Sun, Yizhou and Zaniolo, Carlo},
-        booktitle={Proceedings of the Thirty-Third AAAI Conference on Artificial Intelligence (AAAI)},
-        year={2019}
-    }
-# ukge_smartwater
+  
+ 
